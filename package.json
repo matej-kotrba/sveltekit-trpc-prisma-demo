@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
-		"trpc-sveltekit": "^3.5.4"
+		"trpc-sveltekit": "^3.5.4",
+		"zod": "^3.21.4"
 	}
 }
