@@ -12,7 +12,8 @@ export const router = t.router({
       text: `To je fakt ${input.text}!`,
       user: await ctx.prisma.user.findFirst()
     }
-  })
+  }),
+  addUser: t.procedure.input(z.object)
 })
 
 export type Router = typeof router
