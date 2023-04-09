@@ -1,16 +1,20 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { trpc } from "$lib/trpc/client";
+  import type { User } from "@prisma/client";
 
   let greeting = "press the button to load data";
+  let user: User | null = null;
   let loading = false;
   let inputText = "";
 
   const loadData = async () => {
     loading = true;
-    greeting = await trpc($page).greeting.query({
+    const response = await trpc($page).greeting.query({
       text: inputText,
     });
+    greeting = response.text;
+    user = response.user;
     loading = false;
   };
 </script>
@@ -23,6 +27,9 @@
   >Get data from tRPC</button
 >
 <p>{greeting}</p>
+{#if user}
+  <p>user: {user.name}</p>
+{/if}
 
 <style>
   :global(body) {

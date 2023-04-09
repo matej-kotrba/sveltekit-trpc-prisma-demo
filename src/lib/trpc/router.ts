@@ -7,8 +7,11 @@ export const t = initTRPC.context<Context>().create()
 export const router = t.router({
   greeting: t.procedure.input(z.object({
     text: z.string()
-  })).query(async ({ input }) => {
-    return `To je fakt ${input.text}!`
+  })).query(async ({ input, ctx }) => {
+    return {
+      text: `To je fakt ${input.text}!`,
+      user: await ctx.prisma.user.findFirst()
+    }
   })
 })
 
