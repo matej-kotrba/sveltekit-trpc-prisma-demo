@@ -13,7 +13,15 @@ export const router = t.router({
       user: await ctx.prisma.user.findFirst()
     }
   }),
-  addUser: t.procedure.input(z.object)
+  addUser: t.procedure.input(z.object({
+    name: z.string(),
+  })).mutation(async ({ input, ctx }) => {
+    return await ctx.prisma.user.create({
+      data: {
+        name: input.name,
+      }
+    })
+  })
 })
 
 export type Router = typeof router
