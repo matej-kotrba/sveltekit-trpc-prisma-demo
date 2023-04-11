@@ -29,7 +29,7 @@
 <input type="text" bind:value={inputText} />
 
 <button class="secondary" aria-busy={loading} on:click|preventDefault={loadData}
-  >Get data from tRPC</button
+  >Get data from API via tRPC</button
 >
 <p>{greeting}</p>
 {#if user}
