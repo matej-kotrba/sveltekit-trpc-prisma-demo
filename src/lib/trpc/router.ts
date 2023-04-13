@@ -9,9 +9,16 @@ export const router = t.router({
     text: z.string()
   })).query(async ({ input, ctx }) => {
     return {
-      text: `To je fakt ${input.text}!`,
-      user: await ctx.prisma.user.findFirst()
+      text: "ads",
+      user: {
+        id: "asdasd",
+        name: "sdasdasd"
+      }
     }
+    // return {
+    //   text: `To je fakt ${input.text}!`,
+    //   user: await ctx.prisma.user.findFirst()
+    // }
   }),
   addUser: t.procedure.input(z.object({
     name: z.string(),
@@ -19,7 +26,7 @@ export const router = t.router({
     return await ctx.prisma.user.create({
       data: {
         name: input.name,
-      }
+      },
     })
   })
 })
