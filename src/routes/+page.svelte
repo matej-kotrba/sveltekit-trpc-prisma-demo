@@ -10,7 +10,7 @@
   let inputText = "";
   let createUserData = {};
 
-  // $: console.log($page);
+  $: console.log($page);
 
   const loadData = async () => {
     loading = true;
