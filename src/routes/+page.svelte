@@ -3,14 +3,15 @@
   import { page } from "$app/stores";
   import { trpc } from "$lib/trpc/client";
   import type { User } from "@prisma/client";
+  import { signIn, signOut } from "@auth/sveltekit/client";
+
+  $: console.log($page.data.session);
 
   let greeting = "press the button to load data";
   let user: User | null = null;
   let loading = false;
   let inputText = "";
   let createUserData = {};
-
-  $: console.log($page);
 
   const loadData = async () => {
     loading = true;
@@ -60,6 +61,12 @@
 <!-- {#if createUserData.name}
   <p>{createUserData.name}</p>
 {/if} -->
+
+{#if !$page.data.session}
+  <button on:click={() => signIn()}>Log in</button>
+{:else}
+  <button on:click={() => signOut()}>Log out</button>
+{/if}
 
 <style>
   :global(body) {
