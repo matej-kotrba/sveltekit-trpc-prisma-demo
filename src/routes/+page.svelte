@@ -13,6 +13,8 @@
   let inputText = "";
   let createUserData = {};
 
+  // This code calls the greeting query and sets the greeting and user variables to the response text and user.
+
   const loadData = async () => {
     loading = true;
     const response = await trpc($page).greeting.query({

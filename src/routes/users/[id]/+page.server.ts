@@ -24,6 +24,7 @@ export const actions: Actions = {
     const id = data.get("id") as String
     const name = data.get("name") as String
 
+    // Add a new user to the users table with the given id and name
     if (!id || !name) {
       console.log("Missing id or name")
       return fail(400, { message: "Missing id or name" })
