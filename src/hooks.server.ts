@@ -20,13 +20,22 @@ const handleAuth: Handle = SvelteKitAuth({
   adapter: PrismaAdapter(prisma) as Adapter,
   // @ts-ignore
   providers: [GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
-  secret: AUTH_SECRET
+  secret: AUTH_SECRET,
+  callbacks: {
+    async signIn({ account, user }) {
+      return true // Default behavior for other providers
+    },
+  },
+  pages: {
+    signIn: "/logins"
+  }
 })
 
 const handleAuthChceck: Handle = async ({ event, resolve }) => {
-  if (!event.url.href.endsWith("/") && !await event.locals.getSession()) {
+  if (event.route.id!.startsWith("/users") && !await event.locals.getSession()) {
+    console.log("adsasdasd")
     event.cookies.delete("next-auth.session-token")
-    throw redirect(300, "/")
+    // throw redirect(300, "/")
   }
   const response = resolve(event)
   return response
