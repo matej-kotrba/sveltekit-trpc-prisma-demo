@@ -70,6 +70,8 @@
   <button on:click={() => signOut()}>Log out</button>
 {/if}
 
+<a href="/users">Navigate to users</a>
+
 <style>
   :global(body) {
     font-size: 1.5rem;

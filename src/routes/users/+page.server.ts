@@ -1,9 +1,9 @@
 import prisma from "$lib/prisma"
 import { createContext } from '$lib/trpc/context';
 import { router } from '$lib/trpc/router';
-import { type Actions, type ServerLoad, fail } from "@sveltejs/kit"
+import { type Actions, type ServerLoad, fail, redirect } from "@sveltejs/kit"
 
-export const load: ServerLoad = async () => {
+export const load: ServerLoad = async ({ locals }) => {
   const users = await prisma.user.findMany({
     take: 10
   })

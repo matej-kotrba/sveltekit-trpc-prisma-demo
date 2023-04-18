@@ -1,7 +1,7 @@
 import { sequence } from "@sveltejs/kit/hooks";
 import { createContext } from "./lib/trpc/context";
 import { router } from "./lib/trpc/router"
-import type { Handle } from "@sveltejs/kit";
+import { redirect, type Handle } from "@sveltejs/kit";
 import { createTRPCHandle } from "trpc-sveltekit"
 import { SvelteKitAuth } from "@auth/sveltekit"
 import type { Adapter } from "@auth/core/adapters";
@@ -23,4 +23,13 @@ const handleAuth: Handle = SvelteKitAuth({
   secret: AUTH_SECRET
 })
 
-export const handle = sequence(handleTRPCContext, handleAuth)
+const handleAuthChceck: Handle = async ({ event, resolve }) => {
+  if (!event.url.href.endsWith("/") && !await event.locals.getSession()) {
+    event.cookies.delete("next-auth.session-token")
+    throw redirect(300, "/")
+  }
+  const response = resolve(event)
+  return response
+}
+
+export const handle = sequence(handleTRPCContext, handleAuth, handleAuthChceck)
