@@ -27,15 +27,14 @@ const handleAuth: Handle = SvelteKitAuth({
     },
   },
   pages: {
-    signIn: "/logins"
+    // signIn: "/logins"
   }
 })
 
 const handleAuthChceck: Handle = async ({ event, resolve }) => {
   if (event.route.id!.startsWith("/users") && !await event.locals.getSession()) {
-    console.log("adsasdasd")
     event.cookies.delete("next-auth.session-token")
-    // throw redirect(300, "/")
+    throw redirect(300, "/")
   }
   const response = resolve(event)
   return response

@@ -21,7 +21,7 @@
       text: inputText,
     });
     greeting = response.text;
-    user = response.user;
+    user = response.user as User;
     loading = false;
   };
 
