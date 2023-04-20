@@ -40,5 +40,21 @@ export const actions: Actions = {
     })
 
     throw redirect(300, `/users/${name}`)
+  },
+  createPost: async ({ request }) => {
+    const form = await request.formData()
+    const title = form.get("title") as String
+    const content = form.get("content") as String
+    const authorID = form.get("authorID") as String
+
+    const post = await prisma.post.create({
+      data: {
+        title: title.toString(),
+        content: content.toString(),
+        authorId: authorID.toString(),
+      }
+    })
+
+    console.log(post)
   }
 }

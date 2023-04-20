@@ -14,3 +14,10 @@
   <input type="text" name="name" value={data.user.name} />
   <button type="submit">Submit</button>
 </form>
+
+<form action="?/createPost" method="POST">
+  <input type="text" name="title" />
+  <input type="content" name="content" />
+  <input type="hidden" name="authorID" value={data.user.id} />
+  <button>Submit</button>
+</form>
